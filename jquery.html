@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+</head>
+
+<body>
+
+    <form id="form">
+
+        <label>Name:</label>
+        <input type="text" name="name">
+        <br>
+        <span class="err"></span>
+        <br>
+
+        <label>Email:</label>
+        <input type="email" name="email">
+        <br>
+        <span class="err"></span>
+        <br>
+
+        <label>Contact:</label>
+        <input type="text" name="num">
+        <br>
+        <span class="err"></span>
+        <br>
+
+        <label>Password:</label>
+        <input type="password" name="password">
+        <br>
+        <span class="err"></span>
+        <br>
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+        $(function() {
+
+            $("#form").on("submit", function(e) {
+
+                // Prevent page refresh
+                e.preventDefault();
+
+                let valid = true;
+
+                // Get input values
+                const name = $("input[name='name']").val().trim();
+                const email = $("input[name='email']").val().trim();
+                const contact = $("input[name='num']").val().trim();
+                const password = $("input[name='password']").val();
+
+                // Clear previous errors
+                $(".err").text("");
+
+                // Name validation
+                if (name == "") {
+                    $("input[name='name']").next().text("Name Required");
+                    valid = false;
+                }
+
+                // Email validation
+                if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+                    $("input[name='email']").next().text("Enter valid email");
+                    valid = false;
+                }
+
+                // Contact validation
+                if (!/^\d{10}$/.test(contact)) {
+                    $("input[name='num']").next().text("Contact must contain 10 digits");
+                    valid = false;
+                }
+
+                // Password validation
+                if (password.length < 6) {
+                    $("input[name='password']").next().text("Password must contain at least 6 characters");
+                    valid = false;
+                }
+
+                // If all fields are valid
+                if (valid) {
+                    alert("Form submitted successfully");
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
